@@ -1,0 +1,46 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<!-- Index.cshtml -->
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/payment.css" /> <!-- CSS file include karo -->
+    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe.js include karo -->
+</head>
+<body>
+    <div class="container">
+        <h1>Payment</h1>
+        <form asp-action="StartPayment" method="post">
+            <div class="form-group">
+                <label for="amount">Enter Amount (in dollars):</label>
+                <input type="number" id="amount" name="amount" min="1" required class="form-control" placeholder="Enter amount" />
+            </div>
+            <button type="submit" class="btn btn-primary">Pay Now</button>
+        </form>
+    </div>
+
+    <script>
+        // Optional: Initialize Stripe if needed
+        const stripe = Stripe('@Configuration["Stripe:PublishableKey"]');
+    </script>
+</body>
+</html>
+
+
+
+
+
+@* <form asp-action="StartPayment" method="post">
+    <label>Enter Amount (in dollars):</label>
+    <input type="number" name="amount" min="1" required /> <!-- Ye field amount ke liye hai -->
+    <button type="submit">Pay Now</button>
+</form>
+ *@
